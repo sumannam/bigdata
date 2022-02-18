@@ -3,7 +3,7 @@ import datetime
 import json
 import pandas as pd
 
-ServiceKey="05FIUaUCY5l8XIfew8DQHgYYxn6DG41F7QsHLGJhyBktKfvohBkj5lCWOq/30adctDsSKkc9sLO+EEPlDj/cAQ=="
+ServiceKey=""
 
 #[CODE 1]
 def getRequestUrl(url):    
