@@ -1,6 +1,5 @@
 import urllib.request
 import datetime
-import time
 import json
 
 # 자신의 Client ID와 Client Secret 삽입

@@ -4,8 +4,8 @@ import time
 import json
 
 # 자신의 Client ID와 Client Secret 삽입
-client_id = ''
-client_secret = ''
+client_id = 'wLOvsRJ0i6ej4bS8nzg1'
+client_secret = 'g7ptMfHMKZ'
 
 
 #[CODE 1]
