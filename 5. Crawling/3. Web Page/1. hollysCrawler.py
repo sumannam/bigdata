@@ -6,7 +6,7 @@ import os
 
 #[CODE 1]
 def hollys_store(result):
-    for page in range(1, 58): # 게시판의 마지막 숫자만큼 표시
+    for page in range(1, 2): # 게시판의 마지막 숫자만큼 표시
         Hollys_url = 'https://www.hollys.co.kr/store/korea/korStore.do?pageNo=%d&sido=&gugun=&store=' %page
         print(Hollys_url)
         html = urllib.request.urlopen(Hollys_url)
@@ -35,9 +35,8 @@ def main():
 
     # 현재 경로가 './crawling'이라서 경로 확인과 변경으로 필요
     print(os.getcwd())
-    os.chdir("2. Web Page")
 
-    hollys_tbl.to_csv('./data/hollys.csv', encoding='cp949', mode='w', index=True)
+    hollys_tbl.to_csv('hollys.csv', encoding='cp949', mode='w', index=True)
     del result[:]
        
 if __name__ == '__main__':

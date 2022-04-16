@@ -8,19 +8,16 @@ class Parse(HTMLParser):
  
     # HTMLParser에서 호출할 때 메서드가 출력해야 하는 내용 정의
     def handle_starttag(self, tag, attrs):
-        pass
-        # print("Start tag: ", tag)
-        # for a in attrs:
-        #     print("Attributes of the tag: ", a)
+        print("Start tag: ", tag)
+        for a in attrs:
+            print("Attributes of the tag: ", a)
  
     def handle_data(self, data):
         print("Here's the data: ", data)
  
     def handle_endtag(self, tag):
-        pass
-        # print("End tag: ", tag)
+        print("End tag: ", tag)
  
- #Ref: https://docs.python.org/ko/3/library/html.parser.html
- 
-parser = Parse()
-parser.feed("<html><head><title>Testing Parser</title></head></html>")
+with open("D:\\Git\\bigdata\\5. Crawling\\2. htmlparser\\html_body.html", encoding='utf-8') as f:
+    parser = Parse()
+    parser.feed(f.read())
