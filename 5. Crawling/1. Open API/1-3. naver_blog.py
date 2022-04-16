@@ -6,7 +6,7 @@ import urllib.request
 client_id = "wLOvsRJ0i6ej4bS8nzg1"
 client_secret = "g7ptMfHMKZ"
 
-encText = urllib.parse.quote("손흥민")
+encText = urllib.parse.quote("1984")
 
 url = "https://openapi.naver.com/v1/search/book?query=" + encText # json 결과
 # url = "https://openapi.naver.com/v1/search/blog.xml?query=" + encText # xml 결과

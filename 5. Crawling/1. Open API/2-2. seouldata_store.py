@@ -1,8 +1,12 @@
+import os
+import sys
 import urllib.request
 import datetime
+import time
 import json
 import pandas as pd
 
+#서울열린광장에서 받은 개인 인증키
 ServiceKey=""
 
 #[CODE 1]
@@ -19,17 +23,9 @@ def getRequestUrl(url):
         return None
 
 
-#[CODE 2]
-def getTourismStatsItem(start_index, end_index, year):    
-    service_url = "http://openapi.seoul.go.kr:8088"
-    parameters = "/" + ServiceKey  #인증키
-    parameters += "/" + "json"
-    parameters += "/" + "VwsmTrdarSelngQq"
-    parameters += "/" + str(start_index)
-    parameters += "/" + str(end_index)
-    parameters += "/" + str(year)
-    url = service_url + parameters
-    
+#[CODE 2] "서울 열린데이터 광장" : 한 page에 5개만 display됨. 
+def getPage(start):    
+    url = 'http://openapi.seoul.go.kr:8088/' + ServiceKey+'/json/ChunmanFreeSuggestions/%d/%d' % (start, start+4)    
     retData = getRequestUrl(url)   #[CODE 1]
     
     if (retData == None):
@@ -37,32 +33,40 @@ def getTourismStatsItem(start_index, end_index, year):
     else:
          return json.loads(retData)
 
-#[CODE 3]
-def getTourismStatsService(start_index, end_index, year):
-    jsonResult = []
-    
-    for year in range(year, year+1):        
-        jsonData = getTourismStatsItem(start_index, end_index, year) #[CODE 2]
-        jsonResult.append(jsonData['VwsmTrdarSelngQq']['row'])
 
-    return (jsonResult)
+#[CODE 3]  "서울 열린데이터 광장" : 최대 1000개까지만 제공
+def getItemsAll():
+    result = []
+    for i in range(1000//5):
+        jsonData = getPage(i*5 +1) #[CODE 2]        
+        if (jsonData['ChunmanFreeSuggestions']['RESULT']['CODE'] == 'INFO-100'):
+            print("인증키가 유효하지 않습니다!!")
+            return
+
+        if(jsonData['ChunmanFreeSuggestions']['RESULT']['CODE'] == 'INFO-000'):
+            for i in range(5):
+                SN = jsonData['ChunmanFreeSuggestions']['row'][i]['SN']
+                TITLE = jsonData['ChunmanFreeSuggestions']['row'][i]['TITLE']
+                CONTENT_link = jsonData['ChunmanFreeSuggestions']['row'][i]['CONTENT']
+                DATE = jsonData['ChunmanFreeSuggestions']['row'][i]['REG_DATE']
+                result.append([SN, TITLE, CONTENT_link, DATE])
+    return result
+
 
 #[CODE 0]
 def main():
     jsonResult = []
     result = []
-    natName=''
 
-    print("<< 국내 입국한 외국인의 통계 데이터를 수집합니다. >>")
-    # output = input('xml or json? : ')
-    # start_index =int(input('시작 인덱스? : ')) # 예: 1
-    # end_index = int(input('끝나는 인덱스? : '))  # 예: 5
-    # year = int(input('검색연도? : '))  # 예: 2020
+    print("<< 현재 기준 '민주주의 서울 자유제안’ 데이터 1000개를 수집합니다. >>")
     
-    # jsonResult =getTourismStatsService(start_index, end_index, year) #[CODE 3]
-    jsonResult =getTourismStatsService(1, 10, 2020) #[CODE 3]
+    result = getItemsAll() #[CODE 3]
+ 
+    #파일저장 : csv 파일   
+    columns = ["SN", "TITLE", "CONTENT_link", "DATE"]
+    result_df = pd.DataFrame(result, columns = columns)
+    result_df.to_csv('./민주주의서울자유제안.csv',  index=False, encoding='cp949')
 
-    print(jsonResult)
     
 if __name__ == '__main__':
     main()

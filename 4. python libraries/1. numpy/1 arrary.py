@@ -5,7 +5,7 @@ print(ar1)
 # 출력:
 # array([1, 2, 3, 4, 5])
 
-type(ar1)
+print(type(ar1))
 # 출력:
 # <class 'numpy.ndarray'>
 
@@ -16,6 +16,6 @@ ar2
 #        [40, 50, 60]])
 
 ar3 = np.arange(1, 11, 2)
-ar3
+print(ar3)
 # 출력:
 # array([1, 3, 5, 7, 9])
