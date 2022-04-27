@@ -1,3 +1,6 @@
+# python -m pip install -U pip
+# pip install requests
+
 import requests
 from bs4 import BeautifulSoup
 
