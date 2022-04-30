@@ -2,8 +2,9 @@
 # pip install matplotlib
 # pip install wordcloud
 # pip install nltk 
-# !pip install konlpy 
-# !pip install kss 
+# pip install konlpy 
+# pip install kss 
+# pip install xlrd
 
 import pandas as pd
 import glob

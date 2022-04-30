@@ -8,7 +8,7 @@ html = '<h1 id="title">인천재능대</h1><div class="top"><ul class="menu"><li
 
 soup = BeautifulSoup(html, 'html.parser')
 # print(soup.prettify())
-# print(soup.h1)
+print(soup.h1)
 # print(soup.div)
 
 # print(soup.ul)
@@ -18,7 +18,6 @@ soup = BeautifulSoup(html, 'html.parser')
 # print(soup.find_all("li"))
 
 print(soup.a)
-
 print(soup.find("a"))
 
 print(soup.find_all("a")) # List 타입으로 반환
